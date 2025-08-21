@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="mision.html">Misison</a>
+        <a href="vision.html">Vision</a>
+        <a href="productos.html">Productos</a>
+        <a href="index.html">Inicio</a>
+    </nav>
+    <h2>Formulario de Registro</h2>
+    <form id="formRegistro">
+        <label>Nombre<input type="text" name="Nombre"required></label>
+        <label>Apellido<input type="text" name="Apellido"required></label>
+        <label>Direccion<input type="text" name="Direccion"required></label>
+        <label>Sexo</label>
+        <label><input type="radio" name="Sexo" value="Femenino"required>Femenino</label>
+        <label><input type="radio" name="Sexo" value="Masculino"required>Masculino</label>
+        <label><input type="radio" name="Sexo" value="Otro" required>Otro</label>
+        <label>Edad:
+            <input type="number" name="Edad" min="1" max="120" required oninput=" CalcularDescuento(this.value)">
+        </label>
+        <p id="descuento"></p>
+        <label>Fecha de nacimiento:
+            <input type="date" name="fechanacimiento" required>
+        </label>
+        <label>Email para contacto:
+            <input type="email" name="email" required>
+        </label>
+        <button type="submit">Enviar</button>
+    </form>
+    <footer>
+        <p>&copy;2025 Tienda de cosmeticos. Todods los derechos reservados.</p>
+    </footer>
+    <script>
+        emailjs.initc("yasmincayaxon@gmail.com");
+        function CalcularDescuento(Edad){
+            let descuento=0;
+            if(edad <= 18){
+                descuento=10;
+            }else if (edad <=40){
+                descuento=9;
+            }else if (edad >=40){
+                descuento=10;
+        }else if (edad >=50){
+                descuento=25;
+            }
+            document.getElementById('descuento').textContent="Tu descuento es de:"+descuento+"%";
+        }
+        document.getElementById("formRegistro").addEventListener("submit", function(event){
+            event.preventDefault();
+            emailjs.sendForm('Tu_service_id', 'Tu_template_id', this).then(()=>alert("Formulario enviado correctamente."),(err)=>alert("Error:" + JSON.stringify(err)));
+        });
+    </script>
+</body>
+</html>
